@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Start Page</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" rel="stylesheet" />
+        <link href="css/design.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <h1 class="title">Book Shop</h1>                
+            </header>
+            <div class="columns">
+                <div class="column is-one-quarter">
+                    <form action="javascript:void(0)">
+                        <div class="control">
+                            <label class="label">Title</label>
+                            <input id="inputTitle" class="input" placeholder="title" type="text"/>
+                        </div>
+                        <div class="control">
+                            <label class="label">Author</label>
+                            <input id="inputAuthor" class="input" placeholder="author" type="text"/>
+                        </div>
+                        <div class="control">
+                            <label class="label">Price</label>
+                            <input id="inputPrice" class="input" placeholder="Price" type="number"/>
+                        </div>
+                        <div class="control">
+                            <label class="label">Quantity</label>
+                            <input id="inputQuantity" class="input" placeholder="Quantity" type="number"/>
+                        </div>
+                        <div class="control">
+                            <a id="btnSearch" class="button is-medium is-fullwidth is-success">Search</a>
+                            <a id="btnAdd" class="button is-medium is-fullwidth is-success">Add</a>
+                            <a id="btnBuy" class="button is-medium is-fullwidth is-success">Buy</a>
+                            <a id="btnPopulate" class="button is-medium is-fullwidth is-success">Populate</a>
+                        </div>
+                    </form>
+                </div>
+                <div class="column">
+                    <section id="buyStatus" class="hero has-background-light" style="display:none;">
+                        <p> <span class="tag is-success">Success</span>
+                            <span class="tag is-warning">Out of stock</span>
+                            <span class="tag is-danger">Does not exist</span></p>
+                        <span id="totalPrice" class="tag is-black"></span>
+                    </section>
+                    <table id="bookTable" class="table is-striped is-fullwidth">
+                        <thead>
+                            <tr><th>Title</th><th>Author</th><th>Price</th><th>Buy</th></tr>
+                        </thead>
+                        <tbody id="bookTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <script  src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
+        <script src="js/script.js" type="text/javascript"></script>
+    </body>
+</html>
