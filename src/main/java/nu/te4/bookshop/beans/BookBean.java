@@ -10,6 +10,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
@@ -26,6 +27,9 @@ import org.slf4j.LoggerFactory;
 @Stateless
 public class BookBean {
 
+    @Inject
+    BookFacade bookFacade;
+    
     private static final Logger LOGGER = LoggerFactory.getLogger(BookBean.class);
     
     /**
@@ -34,8 +38,7 @@ public class BookBean {
      * @return true if success otherwise false
      */
     public boolean addExternalBooks(){
-        BookFacade bookFacade = new BookFacade();
-        return bookFacade.add(null, 0);
+       return bookFacade.add(null, 0);
     }
 
     /**
@@ -45,7 +48,6 @@ public class BookBean {
      * @return json-object {totalPrice:Nr, Results:[{'bookname':status},..]
      */
     public JsonObject buyBooks(String body) {
-        BookFacade bookFacade = new BookFacade();
         //Create List of Books
         Gson gson = new Gson();
         Type listType = new TypeToken<List<Book>>() {}.getType();
@@ -77,7 +79,6 @@ public class BookBean {
         } catch (NumberFormatException e) {
             LOGGER.error("Error from {}, message: {}", BookBean.class, e.getMessage());
         }
-        BookFacade bookFacade = new BookFacade();
         Gson gson = new Gson();
         Book book = gson.fromJson(body, Book.class);
         return bookFacade.add(book, quantity);
@@ -91,7 +92,6 @@ public class BookBean {
      * @return json-formated string
      */
     public String searchBooks(String title, String author) {
-        BookFacade bookFacade = new BookFacade();
         String searchString = String.format("{'title':'%s','author':'%s'}", title, author);
         Book[] books = bookFacade.list(searchString);
         Gson gson = new Gson();

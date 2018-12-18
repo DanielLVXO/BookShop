@@ -17,6 +17,7 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Singleton;
 import javax.ws.rs.ProcessingException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -28,6 +29,7 @@ import org.slf4j.Logger;
  *
  * @author Daniel
  */
+@Singleton
 public class BookFacade implements BookList {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BookFacade.class);
@@ -158,13 +160,14 @@ public class BookFacade implements BookList {
         if (book == null) {
             return connection.prepareStatement("SELECT * FROM book");
         }
-        boolean hasTitle = (book.getTitle() != null);
-        boolean hasAuthor = (book.getAuthor() != null);
+        boolean hasTitle = (!book.getTitle().isEmpty());
+        boolean hasAuthor = (!book.getAuthor().isEmpty());
         boolean hasPrice = (book.getPrice() != null);
         //1-Build search-String
         String search = "SELECT * FROM book";
         if (hasTitle || hasAuthor || hasPrice) { //atleast one parameter should excist
             search += " WHERE";
+            System.out.println("IN");
             boolean added = false; //if more than one param
             String equalOrLike = (Pronoun.equals("LIKE") ? "LIKE" : "=");
             if (hasTitle) {
